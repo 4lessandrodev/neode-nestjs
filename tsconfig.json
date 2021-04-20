@@ -13,7 +13,6 @@
         ],
         "sourceMap": false,
         "outDir": "./dist",
-        "incremental": true,
         "esModuleInterop": true,
     },
     "exclude": [
