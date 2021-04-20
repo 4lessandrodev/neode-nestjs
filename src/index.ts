@@ -1,6 +1,6 @@
 import { Global, Module, DynamicModule, Logger } from '@nestjs/common';
-import { fromEnv } from 'neode/build';
-import Neode from 'neode/types';
+import { fromEnv } from 'neode';
+import Neode from 'neode';
 
 // Just handle warn on terminal
 const handleWarn = (schema: string) =>
