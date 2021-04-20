@@ -2,6 +2,8 @@
 
 A module to connect Neode, Neo4j and NestJS.
 
+`npm i neode-nestjs` or `yarn add neode-nestjs`
+
 <img src="./readme/nest.png">
 
 #### Variables
