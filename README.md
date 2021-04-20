@@ -1,3 +1,9 @@
+# Neode NestJS
+
+A module to connect Neode, Neo4j and NestJS.
+
+<img src="./readme/nest.png">
+
 #### Variables
 
 > .env
@@ -45,6 +51,16 @@ export class AppModule {}
 #### Entities or Schemas
 
 > Your schema to inject on module
+
+Important when you import `Neode` use like example bellow. Or you will have a problem with types
+
+```ts
+import * as Neode from 'neode';
+```
+
+<img src="./readme/Neo.jpg">
+
+> Schema
 
 ```ts
 import { SchemaObject } from 'neode';

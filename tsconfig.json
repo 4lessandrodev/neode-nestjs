@@ -15,5 +15,9 @@
         "outDir": "./dist",
         "incremental": true,
         "esModuleInterop": true,
-    }
+    },
+    "exclude": [
+        "/**/*.spec.ts",
+        "/*.spec.ts",
+    ]
 }

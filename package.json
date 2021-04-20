@@ -1,6 +1,6 @@
 {
   "name": "neode-nestjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This package provide a neode module for nestjs",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -15,7 +15,8 @@
     "Neode Typescript"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -37,9 +38,13 @@
     "env-cmd": "^10.1.0",
     "neo4j": "^2.0.0-RC2",
     "neo4j-driver": "^4.2.3",
-    "neode": "^0.4.7"
+    "neode": "^0.4.7",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
   }

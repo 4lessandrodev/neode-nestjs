@@ -26,6 +26,7 @@ export class NeodeModule {
                     {
                          provide: 'Connection',
                          useFactory: async () => {
+                              // @ts-expect-error
                               const connection: Neode = await Neode.fromEnv();
 
                               return connection;
@@ -54,6 +55,7 @@ export class NeodeModule {
                     {
                          provide: 'Connection',
                          useFactory: async () => {
+                              // @ts-expect-error
                               const connection = await Neode.fromEnv().with(
                                    schema,
                               );
