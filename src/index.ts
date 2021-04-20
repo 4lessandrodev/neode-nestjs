@@ -1,6 +1,6 @@
 import { Global, Module, DynamicModule, Logger } from '@nestjs/common';
-import { fromEnv } from 'neode';
-import Neode from 'neode';
+import { fromEnv } from 'neode/build';
+import Neode from 'neode/types';
 
 // Just handle warn on terminal
 const handleWarn = (schema: string) =>
@@ -26,7 +26,7 @@ export class NeodeModule {
                providers: [
                     {
                          provide: 'Connection',
-                         useFactory: async () => {
+                         useFactory: async (): Promise<Neode> => {
                               const connection: Neode = await fromEnv();
 
                               return connection;
@@ -54,7 +54,7 @@ export class NeodeModule {
                     },
                     {
                          provide: 'Connection',
-                         useFactory: async () => {
+                         useFactory: async (): Promise<Neode> => {
                               const connection = await fromEnv().with(schema);
 
                               // If schema already installed It handle warn

@@ -1,6 +1,6 @@
 {
   "name": "neode-nestjs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "This package provide a neode module for nestjs",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
