@@ -1,4 +1,4 @@
-# Neode NestJS
+# Neode with NestJS
 
 A module to connect Neode, Neo4j and NestJS.
 
@@ -10,7 +10,7 @@ A module to connect Neode, Neo4j and NestJS.
 
 > .env
 
-Ensure you are reading your .env before start your application
+If your connection fail check if you are reading your .env settings before start your application
 You must add `env-cmd` before your script
 
 ```json
@@ -54,7 +54,7 @@ export class AppModule {}
 
 > Your schema to inject on module
 
-Important when you import `Neode` use like example bellow. Or you will have a problem with types
+Important when you import `Neode` if throw types error you should use import like example bellow.
 
 ```ts
 import * as Neode from 'neode';
@@ -112,6 +112,47 @@ export class UserModule {}
 
 ---
 
+#### User interface
+
+Example User interface
+
+```ts
+export interface UserInterface {
+     id: string;
+     name: string;
+     email: string;
+     password: string;
+     avatar: string;
+     isFirstAuth: boolean;
+}
+```
+
+---
+
+#### Create user dto
+
+Dto example if you are using rest api.
+The decorator validation `@IsEmail` refer to `class-validator`
+
+```ts
+export class CreateUserDto implements Partial<UserInterface> {
+     @IsNotEmpty()
+     avatar!: string;
+
+     @IsEmail()
+     @IsNotEmpty()
+     email!: string;
+
+     @IsString()
+     @IsNotEmpty()
+     name!: string;
+
+     @IsNotEmpty()
+     @IsString()
+     password!: string;
+}
+```
+
 #### Service class
 
 You can get connection by injected `Connection`. It returns a Neode instance
@@ -124,7 +165,13 @@ export class UserService {
      constructor(@Inject('Connection') private readonly neode: Neode) {}
 
      async createUser(dto: CreateUserDto): Promise<void> {
-          await this.neode.merge('User', dto);
+          // note that on example my interface has id and isFirstAuth attributes, and my Dto not.
+          // Generate id
+          const id: string = uuid();
+          // Set isFirstAuth
+          const isFirstAuth: boolean = true;
+
+          await this.neode.merge('User', { ...dto, id, isFirstAuth });
      }
 
      async getUsers(): Promise<UserInterface[]> {
@@ -133,3 +180,11 @@ export class UserService {
      }
 }
 ```
+
+References
+
+-    [ Neode ](https://www.npmjs.com/package/neode 'Neode npm page')
+-    [ Neo4J ](https://www.npmjs.com/package/neo4j-driver 'Neo4j Driver npm page')
+-    [ NestJS ](https://nestjs.com/ 'NestJS home page')
+-    [Class Validator](https://www.npmjs.com/package/class-validator 'Class validator npm page')
+-    [Env Cmd](https://www.npmjs.com/package/env-cmd 'Env cmd npm page')
