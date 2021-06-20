@@ -1,4 +1,4 @@
-import { IConfig, NeodeModule } from '../src/index';
+import { IConnection, NeodeModule } from '../src/index';
 import Neode from 'neode';
 import { fromEnv, SchemaObject } from 'neode';
 
@@ -31,7 +31,7 @@ describe('connection with config', () => {
 			required: true
 		}
 	};
-	const config: IConfig = {
+	const config: IConnection = {
 		host: 'bolt://localhost',
 		password: 'neo4j',
 		port: 7687,
