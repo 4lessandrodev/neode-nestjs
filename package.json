@@ -1,51 +1,51 @@
 {
-  "name": "neode-nestjs",
-  "version": "0.0.8",
-  "description": "This package provide a neode module for nestjs",
-  "main": "dist/index.js",
-  "types": "dist/index.d.js",
-  "license": "ISC",
-  "author": "Alessandro Dev",
-  "keywords": [
-    "Nestjs",
-    "Neode",
-    "Neo4j",
-    "Graph",
-    "Database",
-    "Neode Typescript"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/4lessandrodev/neode-nestjs.git"
-  },
-  "bugs": {
-    "url": "https://github.com/4lessandrodev/neode-nestjs/issues"
-  },
-  "homepage": "https://github.com/4lessandrodev/neode-nestjs#readme",
-  "dependencies": {
-    "@neode/querybuilder": "^0.1.8",
-    "@nestjs/common": "^7.6.13",
-    "@nestjs/config": "^0.6.3",
-    "@nestjs/core": "^7.6.13",
-    "@nestjs/platform-express": "^7.6.13",
-    "@types/neo4j": "^2.0.2",
-    "class-transformer": "^0.4.0",
-    "class-validator": "^0.13.1",
-    "env-cmd": "^10.1.0",
-    "neo4j": "^2.0.0-RC2",
-    "neo4j-driver": "^4.2.3",
-    "neode": "^0.4.7",
-    "reflect-metadata": "^0.1.13"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.6",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
-  }
+	"name": "neode-nestjs",
+	"version": "0.0.9",
+	"description": "This package provide a neode module for nestjs",
+	"main": "dist/index.js",
+	"types": "dist/index.d.js",
+	"license": "ISC",
+	"author": "Alessandro Dev",
+	"keywords": [
+		"Nestjs",
+		"Neode",
+		"Neo4j",
+		"Graph",
+		"Database",
+		"Neode Typescript"
+	],
+	"scripts": {
+		"build": "tsc",
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/4lessandrodev/neode-nestjs.git"
+	},
+	"bugs": {
+		"url": "https://github.com/4lessandrodev/neode-nestjs/issues"
+	},
+	"homepage": "https://github.com/4lessandrodev/neode-nestjs#readme",
+	"dependencies": {
+		"@neode/querybuilder": "^0.1.8",
+		"@nestjs/common": "^7.6.18",
+		"@nestjs/config": "^0.6.3",
+		"@nestjs/core": "^7.6.18",
+		"@nestjs/platform-express": "^7.6.18",
+		"@types/neo4j": "^2.0.2",
+		"class-transformer": "^0.4.0",
+		"class-validator": "^0.13.1",
+		"env-cmd": "^10.1.0",
+		"neo4j": "^2.0.0-RC2",
+		"neo4j-driver": "^4.3.1",
+		"neode": "^0.4.7",
+		"reflect-metadata": "^0.1.13"
+	},
+	"devDependencies": {
+		"@types/jest": "^26.0.23",
+		"jest": "^27.0.4",
+		"ts-jest": "^27.0.3",
+		"ts-node": "^10.0.0",
+		"typescript": "^4.2.4"
+	}
 }

@@ -1,0 +1,14 @@
+#docker-compose.yml
+version: '3'
+services:
+  neo-db:
+    image: neo4j
+    container_name: neo-db
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ./neo-data:/data
+
+volumes:
+  db-data:

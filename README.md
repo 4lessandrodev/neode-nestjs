@@ -31,7 +31,7 @@ NEO4J_ENCRYPTION=ENCRYPTION_OFF
 
 ---
 
-#### Main module
+#### Main module with .env settings
 
 ```ts
 import { NeodeModule } from 'neode-nestjs';
@@ -46,6 +46,20 @@ import { NeodeModule } from 'neode-nestjs';
      providers: [],
 })
 export class AppModule {}
+```
+
+#### Main module with connection settings
+
+```ts
+@Module({
+ imports: [
+  NeodeModule.forRoot (
+   { host: 'bolt://localhost', port: 7689, username: 'name', password: '1234' }
+ ), UserModule],
+     controllers: [UserController],
+     providers: [UserService],
+})
+export class UserModule {}
 ```
 
 ---
@@ -99,11 +113,26 @@ export default UserSchema;
 
 ---
 
-#### Specific module
+#### Specific module with .env settings
 
 ```ts
 @Module({
      imports: [NeodeModule.forFeature({ User: UserSchema })],
+     controllers: [UserController],
+     providers: [UserService],
+})
+export class UserModule {}
+```
+
+#### Specific module with connection settings
+
+```ts
+@Module({
+ imports: [
+  NeodeModule.forFeature (
+   { User: UserSchema }, 
+   { host: 'bolt://localhost', port: 7689, username: 'name', password: '1234' }
+ )],
      controllers: [UserController],
      providers: [UserService],
 })
@@ -183,8 +212,8 @@ export class UserService {
 
 References
 
--    [ Neode ](https://www.npmjs.com/package/neode 'Neode npm page')
--    [ Neo4J ](https://www.npmjs.com/package/neo4j-driver 'Neo4j Driver npm page')
--    [ NestJS ](https://nestjs.com/ 'NestJS home page')
--    [Class Validator](https://www.npmjs.com/package/class-validator 'Class validator npm page')
--    [Env Cmd](https://www.npmjs.com/package/env-cmd 'Env cmd npm page')
+- [ Neode ](https://www.npmjs.com/package/neode 'Neode npm page')
+- [ Neo4J ](https://www.npmjs.com/package/neo4j-driver 'Neo4j Driver npm page')
+- [ NestJS ](https://nestjs.com/ 'NestJS home page')
+- [Class Validator](https://www.npmjs.com/package/class-validator 'Class validator npm page')
+- [Env Cmd](https://www.npmjs.com/package/env-cmd 'Env cmd npm page')
