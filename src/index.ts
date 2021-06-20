@@ -1,7 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { Global, Module, DynamicModule, Logger } from '@nestjs/common';
 import { fromEnv } from 'neode';
 import Neode from 'neode';
-var NEODE_CONNECTION_CONFIG: IConfig | undefined;
 const isTimestamped = true;
 
 /**
@@ -10,7 +10,7 @@ const isTimestamped = true;
  * @var password
  * @var port
  */
-export interface IConfig {
+export interface IConnection {
 	host: string;
 	username: string;
 	password: string;
@@ -31,7 +31,7 @@ interface Schema {
 @Module({})
 export class NeodeModule {
 	/**
-	 * @param config as optional settings
+	 * @param connection as optional settings
 	 * @argument host
 	 * @argument username
 	 * @argument password
@@ -39,14 +39,8 @@ export class NeodeModule {
 	 * @description Provide an object with settings or ensure you have a .env file with neo4j connection settings
 	 * @returns Connection as Neode instance. You can get it with `Connection` key on injection argument
 	 */
-	static forRoot (config?: IConfig): DynamicModule {
-		if (config) {
-			NEODE_CONNECTION_CONFIG = {
-				host: config.host,
-				password: config.password,
-				port: config.port,
-				username: config.username
-			};
+	static forRoot (connection?: IConnection): DynamicModule {
+		if (!connection) {
 			return {
 				module: NeodeModule,
 				global: true,
@@ -54,16 +48,14 @@ export class NeodeModule {
 					{
 						provide: 'Connection',
 						useFactory: async (): Promise<Neode> => {
-							const connection: Neode = await new Neode(
-								`${config.host}:${config.port}`,
-								config.username, config.password);
-							return connection;
-						}
-					}
-				]
+							const connect: Neode = await fromEnv();
+							return connect;
+						},
+					},
+				],
+				exports: ['Connection'],
 			};
 		}
-		NEODE_CONNECTION_CONFIG = undefined;
 		return {
 			module: NeodeModule,
 			global: true,
@@ -71,12 +63,13 @@ export class NeodeModule {
 				{
 					provide: 'Connection',
 					useFactory: async (): Promise<Neode> => {
-						const connection: Neode = await fromEnv();
-						return connection;
-					},
-				},
-			],
-			exports: ['Connection'],
+						const connect: Neode = await new Neode(
+							`${connection.host}:${connection.port}`,
+							connection.username, connection.password);
+						return connect;
+					}
+				}
+			]
 		};
 	}
 
@@ -84,11 +77,12 @@ export class NeodeModule {
 	 *
 	 * @param schema key: as label name and value: Node definition as `SchemaObject`
 	 * example: `{ User: UserSchema }`
+	 * @param connection as optional Object with `host` `port` `user` and `password`
 	 * @returns Instance of Neode as connection for module
 	 */
-	static forFeature (schema: Schema): DynamicModule {
+	static forFeature (schema: Schema, connection?: IConnection): DynamicModule {
 		// Check if connection its from env or provided config
-		if (!NEODE_CONNECTION_CONFIG) {
+		if (!connection) {
 			return {
 				module: NeodeModule,
 				global: false,
@@ -100,15 +94,15 @@ export class NeodeModule {
 					{
 						provide: 'Connection',
 						useFactory: async (): Promise<Neode> => {
-							const connection = await fromEnv().with(schema);
+							const connect = await fromEnv().with(schema);
 
 							// If schema already installed It handle warn
 							try {
-								await connection.schema.install();
+								await connect.schema.install();
 							} catch (error) {
 								handleWarn(Object.keys(schema)[0]);
 							} finally {
-								return connection;
+								return connect;
 							}
 						},
 						inject: ['CONFIG'],
@@ -129,15 +123,16 @@ export class NeodeModule {
 				{
 					provide: 'Connection',
 					useFactory: async (): Promise<Neode> => {
-						const connection = await new Neode(`${NEODE_CONNECTION_CONFIG.host}:${NEODE_CONNECTION_CONFIG.port}`,
-							NEODE_CONNECTION_CONFIG.username, NEODE_CONNECTION_CONFIG.password).with(schema);
+						const connect = await new Neode(
+							`${connection.host}:${connection.port}`,
+							connection.username, connection.password).with(schema);
 						// If schema already installed It handle warn
 						try {
-							await connection.schema.install();
+							await connect.schema.install();
 						} catch (error) {
 							handleWarn(Object.keys(schema)[0]);
 						} finally {
-							return connection;
+							return connect;
 						}
 					},
 					inject: ['CONFIG'],
